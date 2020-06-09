@@ -1,3 +1,8 @@
+
+
+apply plugin: "maven"
+version "1.0.0"
+
 subprojects {
-    group "cn.code.common"
+    apply from: "$rootDir/task_deploy_to_maven.gradle"
 }
