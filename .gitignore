@@ -24,3 +24,22 @@ hs_err_pid*
 
 # IDE
 .idea/
+
+
+.gradle/
+build/
+!/element/build/
+target/
+out/
+release/
+reports/
+*.iml
+.DS_Store
+*.log
+gradle/
+gradlew
+gradlew.bat
+version.txt
+support-files/etc
+rebel.xml
+
