@@ -88,7 +88,6 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
-        classpath "nu.studer:gradle-jooq-plugin:$gradleJooqVersion"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
         classpath "io.spring.gradle:dependency-management-plugin:$gradleDependencyVersion"
         classpath "com.github.jengelman.gradle.plugins:shadow:$gradleShadowVersion"
@@ -165,9 +164,9 @@ subprojects {
 
     configurations {
         ktlint
-        all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
-        all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
-        all*.exclude group: "org.apache.tomcat", module: "tomcat-jdbc"
+//        all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+//        all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+//        all*.exclude group: "org.apache.tomcat", module: "tomcat-jdbc"
         all*.exclude group: "org.slf4j", module: "log4j-over-slf4j"
         all*.exclude group: "org.slf4j", module: "slf4j-log4j12"
         all*.exclude group: "org.slf4j", module: "slf4j-nop"
