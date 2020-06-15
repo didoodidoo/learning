@@ -1,6 +1,6 @@
 
 apply plugin: "maven"
-
+version "1.0.0"
 dependencies {
     compile project(":common:common-api")
     compile group: "org.springframework.boot", name: "spring-boot-configuration-processor"

@@ -26,6 +26,11 @@
         </dependency>
 
         <dependency>
+            <groupId>cn.code.zeus</groupId>
+            <artifactId>common-web-mvc</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
