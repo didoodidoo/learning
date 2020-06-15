@@ -1,0 +1,8 @@
+
+apply plugin: "maven"
+
+dependencies {
+    group "cn.code.zeus.common"
+    compile group: "org.springframework.boot", name: "spring-boot-configuration-processor"
+    compile group: "org.springframework.boot", name: "spring-boot-autoconfigure"
+}

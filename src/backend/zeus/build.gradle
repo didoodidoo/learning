@@ -120,7 +120,7 @@ ext {
 }
 
 allprojects {
-    group "com.code.zeus"
+    group "cn.code.zeus"
 
 
     def mavenRepoUrl = System.getProperty("mavenRepoUrl")
@@ -135,7 +135,6 @@ allprojects {
         mavenLocal()
         maven { url mavenRepoUrl }
         maven { url "https://repo.spring.io/libs-milestone" }
-        maven { url "http://artifact.canwaysoft.cn/maven-local/" }
         mavenCentral()
         jcenter()
     }
