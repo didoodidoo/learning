@@ -2,11 +2,9 @@ rootProject.name = 'zeus'
 
 
 include ':core'
+
 include ':common'
-
 include ':common:common-api'
-
 include ':common:common-web'
 include ':common:common-web:common-web-mvc'
 include ':common:common-web:common-web-jersey'
-
