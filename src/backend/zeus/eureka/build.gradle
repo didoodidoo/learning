@@ -1,0 +1,11 @@
+
+apply plugin: "maven"
+version "1.0.0"
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.jetbrains.kotlin:kotlin-reflect"
+    testCompile "junit:junit"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+}

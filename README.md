@@ -10,6 +10,7 @@
 | Spring Boot  | 2.2.5.RELEASE |
 | Spring Could |  Hoxton.SR1   |
 |    Kotlin    |    1.2.51     |
+|    gradle    |     5.6.2     |
 
 
 
