@@ -13,3 +13,8 @@ include ':common:common-web:common-web-jersey'
 include ':practice'
 
 include ':eureka'
+
+include ':user'
+include ':user:user-api'
+include ':user:user-biz'
+include ':user:user-boot'

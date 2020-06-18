@@ -1,5 +1,5 @@
 server:
-  port: 20880
+  port: 20800
 spring:
   application:
     name: eureka
@@ -8,4 +8,21 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://127.0.0.1:${server.port}/eureka/
+      defaultZone: http://zeus.code.cn:20800/eureka/,http://zeus.code1.cn:20801/eureka/,http://zeus.code2.cn:20802/eureka/
+  instance:
+    hostname: zeus.code.cn
+
+# 有集群的情况下的配置 域名可以在host里面配
+#server:
+#  port: 20800
+#spring:
+#  application:
+#    name: eureka
+#eureka:
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+#    service-url:
+#      defaultZone: http://zeus.code.cn:20800/eureka/,http://zeus.code1.cn:20801/eureka/,http://zeus.code2.cn:20802/eureka/
+#  instance:
+#    hostname: zeus.code.cn
