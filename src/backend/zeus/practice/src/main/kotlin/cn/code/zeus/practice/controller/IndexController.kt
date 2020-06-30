@@ -9,17 +9,18 @@ import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import javax.annotation.Resource
 
 @RestController
 @RequestMapping("/index")
 class IndexController {
 
-    @Autowired
+    @Resource
     lateinit var serviceUserApi: ServiceUserApi
 
 
     @RequestMapping("/user/default")
-    fun getDefaultUserInfo(): UserInfo {
+    fun getDefaultUserInfo(): String {
         return serviceUserApi.getDefaultUserInfo()
     }
 

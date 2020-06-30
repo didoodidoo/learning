@@ -1,6 +1,9 @@
 spring:
   application:
     name: service_practice
+  main:
+    allow-bean-definition-overriding: true
+
 
 eureka:
   client:
@@ -13,3 +16,5 @@ eureka:
 
 server:
   port: 8080
+
+

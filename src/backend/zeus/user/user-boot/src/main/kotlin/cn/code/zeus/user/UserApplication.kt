@@ -1,13 +1,9 @@
 package cn.code.zeus.user
 
+import cn.code.zeus.common.web.anno.MicroService
 import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient
-import org.springframework.cloud.openfeign.EnableFeignClients
 
-@SpringBootApplication
-@EnableDiscoveryClient
-@EnableFeignClients
+@MicroService
 class UserApplication
 
 fun main(args: Array<String>) {

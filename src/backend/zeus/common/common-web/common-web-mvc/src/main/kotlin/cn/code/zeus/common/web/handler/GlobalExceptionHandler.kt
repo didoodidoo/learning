@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse
 /**
  * SpringMvc的全局异常捕获
  */
-// @ControllerAdvice 这个注解
 @ControllerAdvice
 class GlobalExceptionHandler {
 

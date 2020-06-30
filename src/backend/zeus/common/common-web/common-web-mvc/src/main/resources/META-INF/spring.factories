@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.code.zeus.common.web.MvcAutoConfiguration,\
-  cn.code.zeus.common.web.FeignConfiguration
+  cn.code.zeus.common.web.MvcAutoConfiguration
