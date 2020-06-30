@@ -1,15 +1,29 @@
 package cn.code.zeus.practice.controller
 
 import cn.code.zeus.common.api.exception.RequestException
+import cn.code.zeus.user.api.service.ServiceUserApi
+import cn.code.zeus.user.pojo.UserInfo
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@RequestMapping("/index")
 class IndexController {
 
-    @RequestMapping("/index/{type}")
+    @Autowired
+    lateinit var serviceUserApi: ServiceUserApi
+
+
+    @RequestMapping("/user/default")
+    fun getDefaultUserInfo(): UserInfo {
+        return serviceUserApi.getDefaultUserInfo()
+    }
+
+    @RequestMapping("/{type}")
     fun index(
         @PathVariable("type")
         type: String
@@ -19,6 +33,7 @@ class IndexController {
             throw RequestException("参数不匹配")
         return "hello"
     }
+
 
     companion object {
         private val logger = LoggerFactory.getLogger(IndexController::class.java)

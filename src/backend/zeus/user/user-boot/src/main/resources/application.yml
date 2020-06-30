@@ -1,6 +1,8 @@
+
+
 spring:
   application:
-    name: service_practice
+    name: service-user
 
 eureka:
   client:
@@ -12,4 +14,6 @@ eureka:
     hostname: zeus.code.cn
 
 server:
-  port: 8080
+  port: 20900
+
+# 集群部署    defaultZone: http://zeus.code.cn:20800/eureka/,http://zeus.code1.cn:20801/eureka/,http://zeus.code2.cn:20802/eureka/

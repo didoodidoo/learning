@@ -1,4 +1,4 @@
-package cn.code.zeus.practice
+package cn.code.zeus.user
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -8,8 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-class PracticeApplication
+class UserApplication
 
 fun main(args: Array<String>) {
-    SpringApplication.run(PracticeApplication::class.java,*args)
+    SpringApplication.run(UserApplication::class.java,*args)
 }
