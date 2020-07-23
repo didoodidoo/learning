@@ -18,9 +18,9 @@ class GlobalExceptionHandler {
     @ExceptionHandler(RequestException::class)
     @ResponseBody
     fun handleRequestException(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        e: RequestException
+            request: HttpServletRequest,
+            response: HttpServletResponse,
+            e: RequestException
     ): String {
         response.status = 400
         return e.message ?: "异常操作"
@@ -29,9 +29,9 @@ class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException::class)
     @ResponseBody
     fun handleRuntimeException(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        e: RequestException
+            request: HttpServletRequest,
+            response: HttpServletResponse,
+            e: RequestException
     ): String {
         response.status = 500
         return "系统内部发生错误,请联系管理员解决"

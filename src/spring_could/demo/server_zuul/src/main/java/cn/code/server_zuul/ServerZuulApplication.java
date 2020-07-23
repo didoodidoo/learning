@@ -19,7 +19,7 @@ public class ServerZuulApplication {
     }
 
     @RequestMapping(value = "/index")
-    public String index(){
+    public String index() {
         return "This is Zuul Server";
     }
 }

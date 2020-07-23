@@ -7,5 +7,5 @@ import org.springframework.boot.SpringApplication
 class UserApplication
 
 fun main(args: Array<String>) {
-    SpringApplication.run(UserApplication::class.java,*args)
+    SpringApplication.run(UserApplication::class.java, *args)
 }

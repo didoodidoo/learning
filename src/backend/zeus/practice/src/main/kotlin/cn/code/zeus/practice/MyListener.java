@@ -13,7 +13,7 @@ public class MyListener implements ApplicationListener {
     }
 
     @EventListener(classes = ApplicationEvent.class)
-    public void listen(ApplicationEvent event){
+    public void listen(ApplicationEvent event) {
         //..
     }
 }

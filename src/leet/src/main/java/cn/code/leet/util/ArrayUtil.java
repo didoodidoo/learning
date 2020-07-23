@@ -1,4 +1,4 @@
-package cn.code.partice.util;
+package cn.code.leet.util;
 
 public class ArrayUtil {
 

@@ -20,7 +20,7 @@ class IndexController {
     lateinit var serviceUserApi: ServiceUserApi
 
     @Value("\${app.conf}")
-    lateinit var conf:String
+    lateinit var conf: String
 
     @RequestMapping("/user/default")
     fun getDefaultUserInfo(): String {
@@ -28,7 +28,7 @@ class IndexController {
     }
 
     @RequestMapping("/conf")
-    fun conf():String{
+    fun conf(): String {
         return conf
     }
 

@@ -118,7 +118,6 @@ allprojects {
     group "cn.code.common"
 
 
-
     repositories {
         mavenLocal()
         maven { url "https://repo.spring.io/libs-milestone" }

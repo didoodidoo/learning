@@ -1,3 +1,3 @@
 package cn.code.zeus.common.api.exception
 
-class RequestException(message:String) : RuntimeException(message)
+class RequestException(message: String) : RuntimeException(message)

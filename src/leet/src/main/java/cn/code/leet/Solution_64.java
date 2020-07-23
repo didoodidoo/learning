@@ -1,19 +1,19 @@
-package cn.code.partice;
+package cn.code.leet;
 
-import static cn.code.partice.util.ArrayUtil.printArr;
+
+import static cn.code.leet.util.ArrayUtil.printArr;
 
 public class Solution_64 {
     public static void main(String[] args) {
         int[][] arr = new int[2][3];
         arr[0] = new int[]{1, 2, 5};
         arr[1] = new int[]{3, 2, 1};
-//        arr[2] = new int[]{4, 2, 1};
         printArr(arr);
-        minPathSum(arr);
+        new Solution_64().minPathSum(arr);
     }
 
 
-    public static int minPathSum(int[][] grid) {
+    public int minPathSum(int[][] grid) {
 
 //        想要求最短的路径 只要求出上边的和左边的最小的然后加起来就行
 //        以此类推 一直取到最上面

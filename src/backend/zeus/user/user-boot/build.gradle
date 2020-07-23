@@ -1,5 +1,5 @@
 apply plugin: "maven"
 
-    dependencies {
-        compile project(":user:user-biz")
-    }
+dependencies {
+    compile project(":user:user-biz")
+}
