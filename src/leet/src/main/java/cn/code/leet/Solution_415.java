@@ -16,9 +16,9 @@ public class Solution_415 {
             if (advance)
                 sum += 1;
             if (i <= len1)
-                sum += Integer.parseInt(String.valueOf(num1.charAt(len1 - i)));//从末位开始相加
+                sum += num1.charAt(len1 - i) - '0';//从末位开始相加
             if (i <= len2)
-                sum += Integer.parseInt(String.valueOf(num2.charAt(len2 - i)));
+                sum += num2.charAt(len2 - i) - '0';
             if (sum >= 10) {
                 sum = sum % 10;
                 advance = true;
@@ -27,7 +27,7 @@ public class Solution_415 {
             }
             result.append(sum);
         }
-        if(advance) result.append("1");
+        if (advance) result.append("1");
         return result.reverse().toString();
     }
 }
