@@ -1,5 +1,7 @@
 package cn.code.leet;
 
+import cn.code.leet.structure.ListNode;
+
 public class Solution_2 {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -28,7 +30,7 @@ public class Solution_2 {
         boolean advance = false;
 
         while (p.next != null) {
-            if (advance == true)
+            if (advance)
                 p.val = p.val + 1;
             if (p.val >= 10) {
                 p.val = p.val % 10;
@@ -45,14 +47,5 @@ public class Solution_2 {
             p.val = p.val % 10;
             p.next = new ListNode(1);
         }
-    }
-}
-
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-        val = x;
     }
 }
