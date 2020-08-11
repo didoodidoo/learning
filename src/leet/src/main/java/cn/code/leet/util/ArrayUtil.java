@@ -15,4 +15,15 @@ public class ArrayUtil {
         }
         System.out.println("***************************");
     }
+
+    public static void printArr(int arr[]) {
+        int i = arr.length;
+        int j = arr.length;
+        System.out.println("***************************");
+        for (int m = 0; m < i; m++) {
+                System.out.print(arr[m]+ "  ");
+            System.out.println("");
+        }
+        System.out.println("***************************");
+    }
 }
