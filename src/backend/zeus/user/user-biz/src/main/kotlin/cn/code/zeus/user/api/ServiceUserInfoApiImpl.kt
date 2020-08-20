@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class ServiceUserInfoApiImpl : ServiceUserApi {
 
-    override fun getDefaultUserInfo(): String {
-        return UserInfo("default", "默认用户", "18812345678", "zeus@123.com").toString()
+    override fun getDefaultUserInfo(): UserInfo {
+        return UserInfo("default", "默认用户", "18812345678", "zeus@123.com")
     }
 }
