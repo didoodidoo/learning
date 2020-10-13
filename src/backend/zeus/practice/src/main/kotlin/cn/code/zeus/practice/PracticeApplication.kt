@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 @MicroService
-//@EnableApolloConfig
 class PracticeApplication
 
 fun main(args: Array<String>) {

@@ -1,4 +1,4 @@
-package cn.code.zeus.practice;
+package cn.code.zeus.practice.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

@@ -1,0 +1,21 @@
+# 集群部署    defaultZone: http://zeus.code.cn:20800/eureka/,http://zeus.code1.cn:20801/eureka/,http://zeus.code2.cn:20802/eureka/
+
+spring:
+  application:
+    name: service-user
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://zeus.code.cn:20800/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: zeus.code.cn
+
+server:
+  port: 20900
+
+feign:
+  hystrix:
+    enabled: true
