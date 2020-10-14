@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user/inventory")
 public interface UserInventoryResource {
 
+
+
     @GetMapping("/{productId}")
     Result<Integer> getProductInventory(
             @PathVariable("productId")
                     String productId
-    );
+    ) throws InterruptedException;
 
 
     @PostMapping("/{productId}")

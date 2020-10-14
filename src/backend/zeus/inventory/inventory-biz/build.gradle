@@ -1,0 +1,10 @@
+apply plugin: "maven"
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.jetbrains.kotlin:kotlin-reflect"
+    testCompile "junit:junit"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+//        compile group: "cn.code.zeus", name: "common-web-mvc", version: "1.0.0"
+    compile project(":inventory:inventory-api")
+}

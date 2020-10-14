@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "thread.num",
+      "type": "java.lang.Integer",
+      "description": "Description for thread.num."
+  }
+] }

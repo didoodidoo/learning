@@ -2,7 +2,7 @@
 
 spring:
   application:
-    name: service-user
+    name: service-inventory
 
 eureka:
   client:
@@ -14,8 +14,14 @@ eureka:
     hostname: zeus.code.cn
 
 server:
-  port: 20900
+  port: 20901
 
 feign:
   hystrix:
     enabled: true
+
+queue:
+  size: 16
+
+thread:
+  num: 16
