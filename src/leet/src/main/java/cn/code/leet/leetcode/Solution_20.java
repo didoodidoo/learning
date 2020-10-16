@@ -1,4 +1,4 @@
-package cn.code.leet;
+package cn.code.leet.leetcode;
 
 import com.sun.istack.internal.NotNull;
 

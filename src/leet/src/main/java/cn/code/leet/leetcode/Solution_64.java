@@ -1,4 +1,4 @@
-package cn.code.leet;
+package cn.code.leet.leetcode;
 
 
 import static cn.code.leet.util.ArrayUtil.printArr;

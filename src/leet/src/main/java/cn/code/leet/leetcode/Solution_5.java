@@ -1,4 +1,4 @@
-package cn.code.leet;
+package cn.code.leet.leetcode;
 
 public class Solution_5 {
 //  用动态规划解

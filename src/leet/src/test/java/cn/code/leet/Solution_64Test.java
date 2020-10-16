@@ -1,5 +1,6 @@
 package cn.code.leet;
 
+import cn.code.leet.leetcode.Solution_64;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package cn.code.leet;
+package cn.code.leet.leetcode;
 
 public class Solution_1025 {
     public boolean divisorGame(int N) {

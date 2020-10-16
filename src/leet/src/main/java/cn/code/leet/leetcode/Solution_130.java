@@ -1,4 +1,4 @@
-package cn.code.leet;
+package cn.code.leet.leetcode;
 
 public class Solution_130 {
     public void solve(char[][] board) {

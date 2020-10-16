@@ -1,8 +1,7 @@
 package cn.code.leet;
 
+import cn.code.leet.leetcode.Solution_415;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class Solution_415Test {
 
