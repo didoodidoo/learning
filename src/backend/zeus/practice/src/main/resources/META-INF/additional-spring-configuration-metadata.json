@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "apollo.cluster",
+      "type": "java.lang.String",
+      "description": "Description for apollo.cluster."
+    },
+    {
+      "name": "apollo.cacheDir",
+      "type": "java.lang.String",
+      "description": "Description for apollo.cacheDir."
+    }
+  ]
+}
