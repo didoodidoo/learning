@@ -24,6 +24,4 @@ include ':inventory'
 include ':inventory:inventory-api'
 include ':inventory:inventory-biz'
 include ':inventory:inventory-boot'
-include 'inventory'
-include 'inventory-api'
 
