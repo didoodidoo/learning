@@ -176,7 +176,202 @@ public int syncUp() {
 
 同步的并不是状态而是操作，和redis同步指令异曲同工。这里面还有一些小细节，比如同步的消息会带时间戳，server收到同步之后会丢弃掉时间比较旧的消息。具体同步操作是怎么做的呢？就不在这里写了不然没完没了了。
 
-##### 1.4
+##### 1.4 client的启动
+
+​	找client的方法和找server的一样，最终看到是在这个里面注册的，有个有趣的东西，这个refreshScope说明他是支持配置SpringCloudConfig热更新的
+
+​	![image-20201021155936481](img/image-20201021155936481.png)
+
+可以看到他把配置管理的bean也托管给Spring了
+
+```java
+@Bean(destroyMethod = "shutdown")
+@ConditionalOnMissingBean(value = EurekaClient.class,
+      search = SearchStrategy.CURRENT)
+@org.springframework.cloud.context.config.annotation.RefreshScope
+@Lazy
+public EurekaClient eurekaClient(ApplicationInfoManager manager,
+      EurekaClientConfig config, EurekaInstanceConfig instance,
+      @Autowired(required = false) HealthCheckHandler healthCheckHandler) {
+   // If we use the proxy of the ApplicationInfoManager we could run into a
+   // problem
+   // when shutdown is called on the CloudEurekaClient where the
+   // ApplicationInfoManager bean is
+   // requested but wont be allowed because we are shutting down. To avoid this
+   // we use the
+   // object directly.
+   // 如果我们使用 ApplicationInfoManager 的代理，那么当在 CloudEurekaClient 上调用 shutdown 时，我们可能会遇到一个问题，即 ApplicationInfoManager bean 被请求，但由于我们正在关闭，所以不允许使用。为了避免这种情况，我们直接使用object。
+   ApplicationInfoManager appManager;
+   if (AopUtils.isAopProxy(manager)) {
+      appManager = ProxyUtils.getTargetObject(manager);
+   }
+   else {
+      appManager = manager;
+   }
+   CloudEurekaClient cloudEurekaClient = new CloudEurekaClient(appManager,
+         config, this.optionalArgs, this.context);
+   cloudEurekaClient.registerHealthCheck(healthCheckHandler);
+   return cloudEurekaClient;
+}
+```
+
+其实最后也是委托给了一个DiscoveryClient去初始化这个client实例，有一个巨长的构造方法
+
+```java
+DiscoveryClient(ApplicationInfoManager applicationInfoManager, EurekaClientConfig config, AbstractDiscoveryClientOptionalArgs args,
+                Provider<BackupRegistry> backupRegistryProvider, EndpointRandomizer endpointRandomizer) {
+    if (args != null) {
+        this.healthCheckHandlerProvider = args.healthCheckHandlerProvider;
+        this.healthCheckCallbackProvider = args.healthCheckCallbackProvider;
+        this.eventListeners.addAll(args.getEventListeners());
+        this.preRegistrationHandler = args.preRegistrationHandler;
+    } else {
+        this.healthCheckCallbackProvider = null;
+        this.healthCheckHandlerProvider = null;
+        this.preRegistrationHandler = null;
+    }
+    
+    this.applicationInfoManager = applicationInfoManager;
+    InstanceInfo myInfo = applicationInfoManager.getInfo();
+
+    clientConfig = config;
+    staticClientConfig = clientConfig;
+    transportConfig = config.getTransportConfig();
+    instanceInfo = myInfo;
+    if (myInfo != null) {
+        appPathIdentifier = instanceInfo.getAppName() + "/" + instanceInfo.getId();
+    } else {
+        logger.warn("Setting instanceInfo to a passed in null value");
+    }
+
+    this.backupRegistryProvider = backupRegistryProvider;
+    this.endpointRandomizer = endpointRandomizer;
+    this.urlRandomizer = new EndpointUtils.InstanceInfoBasedUrlRandomizer(instanceInfo);
+    localRegionApps.set(new Applications());
+
+    fetchRegistryGeneration = new AtomicLong(0);
+
+    remoteRegionsToFetch = new AtomicReference<String>(clientConfig.fetchRegistryForRemoteRegions());
+    remoteRegionsRef = new AtomicReference<>(remoteRegionsToFetch.get() == null ? null : remoteRegionsToFetch.get().split(","));
+
+    if (config.shouldFetchRegistry()) {
+        this.registryStalenessMonitor = new ThresholdLevelsMetric(this, METRIC_REGISTRY_PREFIX + "lastUpdateSec_", new long[]{15L, 30L, 60L, 120L, 240L, 480L});
+    } else {
+        this.registryStalenessMonitor = ThresholdLevelsMetric.NO_OP_METRIC;
+    }
+
+    if (config.shouldRegisterWithEureka()) {
+        this.heartbeatStalenessMonitor = new ThresholdLevelsMetric(this, METRIC_REGISTRATION_PREFIX + "lastHeartbeatSec_", new long[]{15L, 30L, 60L, 120L, 240L, 480L});
+    } else {
+        this.heartbeatStalenessMonitor = ThresholdLevelsMetric.NO_OP_METRIC;
+    }
+
+    logger.info("Initializing Eureka in region {}", clientConfig.getRegion());
+
+    if (!config.shouldRegisterWithEureka() && !config.shouldFetchRegistry()) {
+        logger.info("Client configured to neither register nor query for data.");
+        scheduler = null;
+        heartbeatExecutor = null;
+        cacheRefreshExecutor = null;
+        eurekaTransport = null;
+        instanceRegionChecker = new InstanceRegionChecker(new PropertyBasedAzToRegionMapper(config), clientConfig.getRegion());
+
+        // This is a bit of hack to allow for existing code using DiscoveryManager.getInstance()
+        // to work with DI'd DiscoveryClient
+        DiscoveryManager.getInstance().setDiscoveryClient(this);
+        DiscoveryManager.getInstance().setEurekaClientConfig(config);
+
+        initTimestampMs = System.currentTimeMillis();
+        logger.info("Discovery Client initialized at timestamp {} with initial instances count: {}",
+                initTimestampMs, this.getApplications().size());
+
+        return;  // no need to setup up an network tasks and we are done
+    }
+
+    try {
+        // default size of 2 - 1 each for heartbeat and cacheRefresh
+        scheduler = Executors.newScheduledThreadPool(2,
+                new ThreadFactoryBuilder()
+                        .setNameFormat("DiscoveryClient-%d")
+                        .setDaemon(true)
+                        .build());
+
+        heartbeatExecutor = new ThreadPoolExecutor(
+                1, clientConfig.getHeartbeatExecutorThreadPoolSize(), 0, TimeUnit.SECONDS,
+                new SynchronousQueue<Runnable>(),
+                new ThreadFactoryBuilder()
+                        .setNameFormat("DiscoveryClient-HeartbeatExecutor-%d")
+                        .setDaemon(true)
+                        .build()
+        );  // use direct handoff
+
+        cacheRefreshExecutor = new ThreadPoolExecutor(
+                1, clientConfig.getCacheRefreshExecutorThreadPoolSize(), 0, TimeUnit.SECONDS,
+                new SynchronousQueue<Runnable>(),
+                new ThreadFactoryBuilder()
+                        .setNameFormat("DiscoveryClient-CacheRefreshExecutor-%d")
+                        .setDaemon(true)
+                        .build()
+        );  // use direct handoff
+
+        eurekaTransport = new EurekaTransport();
+        scheduleServerEndpointTask(eurekaTransport, args);
+
+        AzToRegionMapper azToRegionMapper;
+        if (clientConfig.shouldUseDnsForFetchingServiceUrls()) {
+            azToRegionMapper = new DNSBasedAzToRegionMapper(clientConfig);
+        } else {
+            azToRegionMapper = new PropertyBasedAzToRegionMapper(clientConfig);
+        }
+        if (null != remoteRegionsToFetch.get()) {
+            azToRegionMapper.setRegionsToFetch(remoteRegionsToFetch.get().split(","));
+        }
+        instanceRegionChecker = new InstanceRegionChecker(azToRegionMapper, clientConfig.getRegion());
+    } catch (Throwable e) {
+        throw new RuntimeException("Failed to initialize DiscoveryClient!", e);
+    }
+
+    if (clientConfig.shouldFetchRegistry() && !fetchRegistry(false)) {
+        fetchRegistryFromBackup();
+    }
+
+    // call and execute the pre registration handler before all background tasks (inc registration) is started
+    if (this.preRegistrationHandler != null) {
+        this.preRegistrationHandler.beforeRegistration();
+    }
+
+    if (clientConfig.shouldRegisterWithEureka() && clientConfig.shouldEnforceRegistrationAtInit()) {
+        try {
+            if (!register() ) {
+                throw new IllegalStateException("Registration error at startup. Invalid server response.");
+            }
+        } catch (Throwable th) {
+            logger.error("Registration error at startup: {}", th.getMessage());
+            throw new IllegalStateException(th);
+        }
+    }
+
+    // finally, init the schedule tasks (e.g. cluster resolvers, heartbeat, instanceInfo replicator, fetch
+    initScheduledTasks();
+
+    try {
+        Monitors.registerObject(this);
+    } catch (Throwable e) {
+        logger.warn("Cannot register timers", e);
+    }
+
+    // This is a bit of hack to allow for existing code using DiscoveryManager.getInstance()
+    // to work with DI'd DiscoveryClient
+    DiscoveryManager.getInstance().setDiscoveryClient(this);
+    DiscoveryManager.getInstance().setEurekaClientConfig(config);
+
+    initTimestampMs = System.currentTimeMillis();
+    logger.info("Discovery Client initialized at timestamp {} with initial instances count: {}",
+            initTimestampMs, this.getApplications().size());
+}
+```
+
+
 
 ##### 1.5
 

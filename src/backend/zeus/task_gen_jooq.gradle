@@ -1,0 +1,74 @@
+
+apply plugin: 'nu.studer.jooq'
+
+dependencies {
+    compile "org.jooq:jooq"
+    jooqRuntime "mysql:mysql-connector-java"
+}
+
+def moduleName = name.split('-')[1]
+
+def databaseName = moduleName
+def mysqlPrefix = System.getProperty("mysqlPrefix")
+if (mysqlPrefix != null && mysqlPrefix != "") {
+
+    println "jooq build env :" + mysqlPrefix
+    databaseName = mysqlPrefix + databaseName
+} else {
+    databaseName = "${DB_PREFIX}${databaseName}"    
+}
+
+jooq {
+    genenrate(sourceSets.main) {
+
+        jdbc {
+            driver = 'com.mysql.jdbc.Driver'
+            def mysqlURL = System.getProperty("mysqlURL")
+            def mysqlUser = System.getProperty("mysqlUser")
+            def mysqlPasswd = System.getProperty("mysqlPasswd")
+
+            if (mysqlURL == null) {
+                mysqlURL = System.getenv("mysqlURL")
+                mysqlUser = System.getenv("mysqlUser")
+                mysqlPasswd = System.getenv("mysqlPasswd")
+            }
+
+            if (mysqlURL == null) {
+                println "use default mysql database."
+                mysqlURL = DB_HOST
+                mysqlUser = DB_USERNAME
+                mysqlPasswd = DB_PASSWORD
+            }
+
+            url = "jdbc:mysql://${mysqlURL}/${databaseName}?useSSL=false"
+            user = mysqlUser
+            password = mysqlPasswd
+        }
+
+        generator {
+            name = 'org.jooq.codegen.DefaultGenerator'
+
+            database {
+                name = 'org.jooq.meta.mysql.MySQLDatabase'
+                inputSchema = "${databaseName}"
+            }
+
+            strategy {
+                name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+            }
+
+            generate {
+                relations = false
+                deprecated = false
+                fluentSetters = true
+                generatedAnnotation = false
+                javaTimeTypes = true
+            }
+
+            target {
+                packageName = "cn.code.zeus.model.${moduleName}"
+            }
+        }
+        tasks.generateGenenrateJooqSchemaSource.outputs.upToDateWhen { return false }
+    }
+}
