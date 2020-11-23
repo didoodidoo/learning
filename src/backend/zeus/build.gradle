@@ -49,6 +49,10 @@ subprojects {
     apply plugin: "io.spring.dependency-management"
 
 
+    dependencies {
+        testCompile "junit:junit"
+    }
+
     dependencyManagement {
         imports {
             //spring bom helps us to declare dependencies without specifying version numbers.
