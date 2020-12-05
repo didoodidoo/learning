@@ -26,3 +26,7 @@ include ':inventory:inventory-api'
 include ':inventory:inventory-biz'
 include ':inventory:inventory-boot'
 
+include ':netty'
+include ':netty:netty-server'
+include ':netty:netty-client'
+
