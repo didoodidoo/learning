@@ -2,6 +2,9 @@ package cn.code.leet.leetcode;
 
 import cn.code.leet.structure.ListNode;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class Solution_2 {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -25,6 +28,7 @@ public class Solution_2 {
     }
 
     private void parseList(ListNode list) {
+        ArrayList<String> a = new ArrayList<String>();
 //        记录低位是否要像高位进一
         ListNode p = list;
         boolean advance = false;

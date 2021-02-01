@@ -10,7 +10,7 @@
 package cn.code.leet.leetcode.linklist;
 
 import cn.code.leet.structure.ListNode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class Solution_92 {
 

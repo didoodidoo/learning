@@ -1,6 +1,5 @@
 package cn.code.leet;
 
-import cn.code.leet.util.ArrayUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
