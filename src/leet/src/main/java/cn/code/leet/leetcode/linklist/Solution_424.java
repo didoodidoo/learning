@@ -23,40 +23,59 @@ import java.util.*;
 
 public class Solution_424 {
 
+//    public int characterReplacement(String s, int k) {
+////      相当于找一个窗口内 有多少重复的char+k就能得到最大的值了
+//        int len = s.length();
+//        int left = 0, right = 0;
+//        int result = 0;
+//        int max = 0;
+////      用来统计重复的字符
+//        Map<Character, Integer> map = new HashMap<>();
+//
+////        窗口最小的应该就是k，先把右指针往后滑
+//        while (right < len) {
+//            char c = s.charAt(right);
+////            对窗口内的数据做一些处理
+//            if (!map.containsKey(c))
+//                map.put(c, 1);
+//            else
+//                map.put(c, map.get(c) + 1);
+//            right++;
+//
+////            如何判断左边是否需要收缩
+////            窗口大小大于 最大重复字符+k
+//            while ((right - left) > k + getMax(map)) {
+//                char leftC = s.charAt(left);
+//                left++;
+//                map.put(leftC, map.get(leftC) - 1);
+//            }
+//            max = Math.max(max,right - left);
+//        }
+//        return max;
+//    }
+//
+//    private int getMax(Map<Character, Integer> map) {
+//        List<Map.Entry<Character, Integer>> nums = new ArrayList<>(map.entrySet());
+//        nums.sort((o1, o2) -> o2.getValue() - o1.getValue());
+//        return nums.get(0).getValue();
+//    }
+
     public int characterReplacement(String s, int k) {
-//      相当于找一个窗口内 有多少重复的char+k就能得到最大的值了
-        int len = s.length();
+        int[] num = new int[26];
+        int n = s.length();
+        int maxn = 0;
         int left = 0, right = 0;
-        int result = 0;
-        int max = 0;
-//      用来统计重复的字符
-        Map<Character, Integer> map = new HashMap<>();
-
-//        窗口最小的应该就是k，先把右指针往后滑
-        while (right < len) {
-            char c = s.charAt(right);
-//            对窗口内的数据做一些处理
-            if (!map.containsKey(c))
-                map.put(c, 1);
-            else
-                map.put(c, map.get(c) + 1);
-            right++;
-
-//            如何判断左边是否需要收缩
-//            窗口大小大于 最大重复字符+k
-            while ((right - left) > k + getMax(map)) {
-                char leftC = s.charAt(left);
+        while (right < n) {
+            int i = s.charAt(right) - 'A';
+            num[i]++;
+            maxn = Math.max(maxn, num[i]);
+            if (right - left + 1 - maxn > k) {
+                num[s.charAt(left) - 'A']--;
                 left++;
-                map.put(leftC, map.get(leftC) - 1);
             }
-            max = Math.max(max,right - left);
+            right++;
         }
-        return max;
+        return right - left;
     }
 
-    private int getMax(Map<Character, Integer> map) {
-        List<Map.Entry<Character, Integer>> nums = new ArrayList<>(map.entrySet());
-        nums.sort((o1, o2) -> o2.getValue() - o1.getValue());
-        return nums.get(0).getValue();
-    }
 }
