@@ -19,7 +19,7 @@ public class Solution_480 {
 //      0说明相等 只有一个
         double[] result = new double[len - k + 1];
         //用来保存延迟数组
-        List<Integer> sortList = new LinkedList<>();
+        List<Integer> sortList = new ArrayList<>();
         int left = 0;
         int right = k - 1;
 //        初始化有序数组
