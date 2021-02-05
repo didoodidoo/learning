@@ -1,6 +1,9 @@
 package cn.code.leet.leetcode;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  *给你两个长度相同的字符串，s 和 t。
 
@@ -54,9 +57,26 @@ public class Solution_1208 {
                 cost -= Math.abs(s.charAt(left) - t.charAt(left));
                 left++;
             }
-            maxLen = Math.max(maxLen,right-left);
+            maxLen = Math.max(maxLen, right - left);
         }
 
         return maxLen;
+    }
+
+    public List<Integer> countSmaller(int[] nums) {
+        List<Integer> sNums = new ArrayList<>(nums.length);
+        List<Integer> result = new ArrayList<>(nums.length);
+        for (int i = nums.length - 1; i >= 0; i--) {
+            int num = nums[i];
+            for(int j = 0;j<sNums.size();j++){
+//                找到num在数组中的位置，可以用二分查找更快
+                if(sNums.get(j)>num){
+//                把他插入进去，他的位置就是比他大的数的个数,应该是长度减去他的位置
+                    sNums.add(j,num);
+                    result.set(i,j);
+                }
+            }
+        }
+        return result;
     }
 }
