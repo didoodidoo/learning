@@ -48,13 +48,10 @@ public class Solution_567 {
 //          此时right还没有加进去
 //            这时候长度相等了 判断序列是否相同，不同就左出右进
             nums2[s2.charAt(right++) - 'a']++;
-            System.out.println(left + " " + right);
             if (arrEquals(nums1, nums2))
                 return true;
             nums2[s2.charAt(left++) - 'a']--;
         }
-        if (arrEquals(nums1, nums2))
-            return true;
         return false;
     }
 
