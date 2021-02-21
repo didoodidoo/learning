@@ -1,5 +1,7 @@
 package cn.code.leet.leetcode.arry;
 
+import java.util.TreeMap;
+
 /*给你一个整数数组 nums ，和一个表示限制的整数 limit，请你返回最长连续子数组的长度，该子数组中的任意两个元素之间的绝对差必须小于或者等于 limit 。
 如果不存在满足条件的子数组，则返回 0 。
 输入：nums = [8,2,4,7], limit = 4
@@ -20,27 +22,24 @@ package cn.code.leet.leetcode.arry;
 public class Solution_1438 {
 
     public int longestSubarray(int[] nums, int limit) {
-
 //        滑动窗口 求最大值最小值的差
-        int wMin = nums[0];
-        int wMax = nums[0];
+        TreeMap<Integer, Integer> map = new TreeMap<>();
         int left = 0;
-        int right = 1;
+        int right = 0;
         int maxLen = 0;
-
-        while(right<nums.length){
-            int num = nums[right];
-            wMax = Math.max(num,wMax);
-            wMin = Math.min(num,wMin);
-
-            while(wMax-wMin>limit){
+        while (right < nums.length) {
+            int num = nums[right++];
+            map.put(num, map.getOrDefault(num, 0) + 1);
+//            最大的减最小的
+            while (map.lastKey() - map.firstKey() > limit) {
 //                移动左指针 直到不超过
-
-                left++;
+                int nl = nums[left++];
+                map.put(nl, map.get(nl) - 1);
+                if (map.get(nl) <= 0)
+                    map.remove(nl);
             }
-
+            maxLen = Math.max(maxLen, right - left);
         }
-
         return maxLen;
     }
 }
