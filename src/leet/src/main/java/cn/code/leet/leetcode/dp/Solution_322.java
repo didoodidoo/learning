@@ -4,6 +4,11 @@ package cn.code.leet.leetcode.dp;
 import cn.code.leet.util.ArrayUtil;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * 动态规划 凑零钱
  * 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
@@ -46,7 +51,15 @@ public class Solution_322 {
 
     @Test
     public void test() {
-        change(5, new int[]{1, 2, 5});
-    }
+        String path = "E:\\code\\ci-new\\bk-ci-ee\\support-files\\sql";
+        {
+            File file = new File(path);        //获取其file对象
+            File[] fs = file.listFiles();    //遍历path下的文件和目录，放在File数组中
+            for (File f : fs) {                    //遍历File[]数组
+                if (!f.isDirectory())        //若非目录(即文件)，则打印
+                    System.out.println("source "+ f.getName()+";");
+            }
 
+        }
+    }
 }
