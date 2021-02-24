@@ -3,7 +3,13 @@ spring:
     name: service_practice
   main:
     allow-bean-definition-overriding: true
-
+  kafka:
+    producer:
+      bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      group-id: devops
+      bootstrap-servers: 127.0.0.1:9092
+    bootstrap-servers: 127.0.0.1:9092
 
 eureka:
   client:
@@ -19,7 +25,7 @@ feign:
     enabled: true
 
 server:
-  port: 8080
+  port: 28080
 
 app:
   conf: zeus

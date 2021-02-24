@@ -8,7 +8,8 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://zeus.code.cn:20800/eureka/,http://zeus.code1.cn:20801/eureka/,http://zeus.code2.cn:20802/eureka/
+      defaultZone: http://zeus.code.cn:20800/eureka/
+#      ,http://zeus.code1.cn:20801/eureka/,http://zeus.code2.cn:20802/eureka/
   instance:
     hostname: zeus.code.cn
 

@@ -12,4 +12,10 @@ class UserInfo constructor() {
         this.tel = tel
         this.mail = mail
     }
+
+    override fun toString(): String {
+        return "UserInfo(id='$id', name='$name', tel='$tel', mail='$mail')"
+    }
+
+
 }

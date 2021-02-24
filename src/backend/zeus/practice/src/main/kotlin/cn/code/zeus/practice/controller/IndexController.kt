@@ -1,14 +1,15 @@
 package cn.code.zeus.practice.controller
 
-import cn.code.zeus.common.api.exception.RequestException
 import cn.code.zeus.user.api.service.ServiceUserApi
 import cn.code.zeus.user.pojo.UserInfo
+import org.apache.kafka.clients.admin.AdminClient
+import org.apache.kafka.clients.admin.NewTopic
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.cloud.openfeign.FeignClient
+import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.web.bind.annotation.*
 import javax.annotation.Resource
+
 
 @RestController
 @RequestMapping("/index")
@@ -17,8 +18,15 @@ class IndexController {
     @Resource
     lateinit var serviceUserApi: ServiceUserApi
 
-    @Value("\${app.conf}")
-    lateinit var conf: String
+
+    @Autowired
+    lateinit var kafkaTemplate: KafkaTemplate<String, Any>
+
+    @Autowired
+    lateinit var adminClient: AdminClient
+
+//    @Value("\${app.conf}")
+//    lateinit var conf: String = "conf"
 
     @ResponseBody
     @RequestMapping("/user/default")
@@ -28,7 +36,24 @@ class IndexController {
 
     @RequestMapping("/conf")
     fun conf(): String {
-        return conf
+        return "conf"
+    }
+
+    @RequestMapping("/kafka")
+    fun kafka(
+        @RequestParam("message")
+        message: String
+    ): String {
+        kafkaTemplate.send("topic.devops.test", UserInfo(message, message, "c", "d"))
+        return "发送成功"
+    }
+
+    @RequestMapping("/topic")
+    fun kafkaTopic(): String {
+//        val topic = NewTopic("topic.devops.test", 1, 1.toShort())
+//        adminClient.createTopics(listOf(topic))
+        adminClient.listTopics()
+        return adminClient.listTopics().names().toString()
     }
 
 

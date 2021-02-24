@@ -17,4 +17,6 @@ interface ServiceUserApi {
     @GetMapping("/default")
     fun getDefaultUserInfo(): UserInfo
 
+
+
 }
