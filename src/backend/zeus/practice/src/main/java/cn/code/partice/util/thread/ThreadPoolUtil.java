@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Service
-public class ThreadPoolUtil {
+public  class ThreadPoolUtil {
 
     private static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(10);
 

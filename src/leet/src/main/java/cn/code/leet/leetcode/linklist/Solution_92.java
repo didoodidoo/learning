@@ -54,6 +54,33 @@ public class Solution_92 {
         }
     }
 
+
+    //合并两个有序链表 两个指针
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null)
+            return l2;
+        if (l2 == null)
+            return l1;
+//        搞个虚拟头
+        ListNode head = new ListNode(0);
+        ListNode p = head;
+        while (l1 != null) {
+            if (l2 == null || l1.val >= l2.val) {
+                p.next = l1;
+                p = p.next;
+                l1 = l1.next;
+            } else {
+                p.next = l2;
+                p = p.next;
+                l2 = l2.next;
+            }
+        }
+//        1遍历完了2还有剩的 直接接上去
+        if (l2 != null)
+            p.next = l2;
+        return head.next;
+    }
+
     @Test
     public void test() {
         ListNode head = new ListNode(1);
