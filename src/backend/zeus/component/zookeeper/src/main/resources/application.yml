@@ -1,0 +1,49 @@
+spring:
+  redis:
+    host: 120.78.189.131
+    port: 6379
+    password: 1qaz@WSX
+  application:
+    name: service_practice
+  main:
+    allow-bean-definition-overriding: true
+  kafka:
+    producer:
+      bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      group-id: devops
+      bootstrap-servers: 127.0.0.1:9092
+    bootstrap-servers: 127.0.0.1:9092
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://zeus.code.cn:20800/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: zeus.code.cn
+
+feign:
+  hystrix:
+    enabled: true
+
+server:
+  port: 28081
+
+app:
+  conf: zeus
+
+# 使用官网给的QuickStart1.6.1部署的单节点服务
+# 如果是从IDEA启动需要加上  -Dapollo.configService=http://192.168.104.36:8080 -Denv=DEV
+# jar启动需要加上参数 java -Dapollo.configService=http://192.168.2.11:30002 -Denv=DEV -jar application-practice.jar
+#apollo:
+#  cluster: default
+#  meta: http://192.168.104.36:8090
+#  cacheDir: ./config
+#  bootstrap:
+#    enabled: true
+#    namespaces: application-service-practice
+#
+#app:
+#  id: zeus

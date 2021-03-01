@@ -1,0 +1,18 @@
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.jetbrains.kotlin:kotlin-reflect"
+    compile ('org.apache.curator:curator-recipes:4.2.0'){
+        exclude group:'org.apache.curator'
+    }
+    compile ('org.apache.curator:curator-framework:4.2.0'){
+        exclude group:'org.apache.zookeeper'
+    }
+    compile ('org.apache.zookeeper:zookeeper:3.4.9'){
+        exclude group:'org.slf4j'
+        exclude group:'log4j'
+    }
+
+    testCompile "junit:junit"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
