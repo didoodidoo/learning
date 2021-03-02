@@ -91,4 +91,77 @@ public class Solution {
         }
         return null;
     }
+
+
+    public int[] twoSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        int left = 0;
+        int right = nums.length - 1;
+        while (left != right) {
+            int sum = nums[left] + nums[right];
+            if (sum > target)
+                right--;
+            else if (sum < target)
+                left++;
+            else
+                return new int[]{left, right};
+        }
+        return new int[2];
+    }
+
+
+
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int[][] flag = new int[matrix.length][matrix[0].length];
+        List<Integer> result = new ArrayList<>();
+        int direction = 1;
+        check(0, 0, flag, result, matrix, direction);
+        return result;
+    }
+
+    // 右 下 左 上 1,2,3,4   direction+1
+    public void check(int i, int j, int[][] flag, List<Integer> result, int[][] matrix, int direction) {
+        //全都不能检查就结束
+        if (i >= flag.length || j >= flag[0].length ||i<0||j<0|| flag[i][j] == 1)
+            return;
+        result.add(matrix[i][j]);
+        flag[i][j] = 1;
+        //决定下一个的方向
+
+        switch (direction) {
+            case 1: {
+                //方向向右 检查能否继续向右，不能则向下
+                if (j + 1 < matrix[0].length && flag[i][j + 1] == 0)
+                    check(i, j + 1, flag, result, matrix, direction);
+                else
+                    check(i + 1, j, flag, result, matrix, 2);
+                break;
+            }
+            case 2: {//检查是否继续向下 不能则向左
+                if (i + 1 < matrix.length && flag[i + 1][j] == 0)
+                    check(i + 1, j, flag, result, matrix, direction);
+                else
+                    check(i, j - 1, flag, result, matrix, 3);
+                break;
+            }
+            case 3: {//是否能继续向左 不能就向上
+                if (j - 1 >= 0 && flag[i][j - 1] == 0)
+                    check(i, j - 1, flag, result, matrix, direction);
+                else
+                    check(i - 1, j, flag, result, matrix, 4);
+                break;
+            }
+            case 4: { //能否向上 不能则向右
+                if (i - 1 >= 0 && flag[i - 1][j] == 0)
+                    check(i - 1, j, flag, result, matrix, direction);
+                else
+                    check(i, j + 1, flag, result, matrix, 1);
+                break;
+            }
+            default:
+                break;
+        }
+
+    }
+
 }
