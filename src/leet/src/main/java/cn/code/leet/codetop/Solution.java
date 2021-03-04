@@ -2,9 +2,7 @@ package cn.code.leet.codetop;
 
 import cn.code.leet.structure.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Solution {
 
@@ -110,7 +108,6 @@ public class Solution {
     }
 
 
-
     public List<Integer> spiralOrder(int[][] matrix) {
         int[][] flag = new int[matrix.length][matrix[0].length];
         List<Integer> result = new ArrayList<>();
@@ -122,7 +119,7 @@ public class Solution {
     // 右 下 左 上 1,2,3,4   direction+1
     public void check(int i, int j, int[][] flag, List<Integer> result, int[][] matrix, int direction) {
         //全都不能检查就结束
-        if (i >= flag.length || j >= flag[0].length ||i<0||j<0|| flag[i][j] == 1)
+        if (i >= flag.length || j >= flag[0].length || i < 0 || j < 0 || flag[i][j] == 1)
             return;
         result.add(matrix[i][j]);
         flag[i][j] = 1;
@@ -162,6 +159,139 @@ public class Solution {
                 break;
         }
 
+    }
+
+
+    public int[] countBits(int num) {
+
+        int[] result = new int[num + 1];
+        boolean flag = true;
+        //如果该数是奇数 那么在原有基础上加一
+        result[0] = 0;
+        for (int i = 1; i <= num; i++) {
+            if (flag) {
+                result[i] = result[i - 1];
+            } else {
+                result[i] = result[i / 2];
+            }
+            flag = !flag;
+        }
+        return result;
+    }
+
+    //平方根
+    public int mySqrt(int x) {
+        //二分查找吧
+        int left = 0;
+        int right = x;
+        int mid = -1;
+        while (left <= right) {
+            mid = (right - left) / 2 + left;
+            long num = (long) mid * mid;
+            if (mid * mid > x) {
+                right = mid - 1;
+            } else if (mid * mid < x) {
+                left = mid + 1;
+            } else {
+                return mid;
+            }
+        }
+        return mid;
+    }
+
+
+    List<List<Integer>> pathSum = new ArrayList<>();
+    Deque<Integer> queue = new LinkedList<>();
+
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        //在子树中找和
+        findPath(targetSum, root);
+        return pathSum;
+    }
+
+    public void findPath(int target, TreeNode root) {
+        if (root == null)
+            return;
+        if (root.val == target && root.left == null && root.right == null) {
+            queue.offer(root.val);
+            pathSum.add(new ArrayList<>(queue));
+            queue.pollLast();
+        } else {
+            queue.offer(root.val);
+            findPath(target - root.val, root.left);
+            findPath(target, root.right);
+        }
+    }
+
+
+    int depth = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null)
+            return 0;
+        depth(root);
+        return depth - 1;
+    }
+
+    public int depth(TreeNode root) {
+        if (root == null)
+            return 0;
+        //左子树最大深度
+        int left = depth(root.left);
+        //右子树最大深度
+        int right = depth(root.right);
+        depth = Math.max(depth, left + right + 1);
+        return Math.max(left, right) + 1;
+    }
+
+
+    boolean balance = true;
+
+    public boolean isBalanced(TreeNode root) {
+        if (root == null)
+            return false;
+        return balance && Math.abs(height(root.left) - height(root.right)) <= 1;
+    }
+
+    public int height(TreeNode root) {
+        if (root == null || !balance) {
+            return 0;
+        }
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            balance = false;
+            return 0;
+        }
+        return Math.max(leftHeight, rightHeight);
+    }
+
+
+
+    List<List<Integer>> permuteResult = new ArrayList<>();
+    Deque<Integer> permuteQueue = new LinkedList<>();
+    //全排列
+    public List<List<Integer>> permute(int[] nums) {
+        int[] flag = new int[nums.length];
+        fillQueue(nums,flag);
+        return permuteResult;
+    }
+
+    public void fillQueue(int[] nums, int[] flag){
+        for(int i = 0;i<nums.length;i++){
+            if(flag[i]==0){
+                flag[i]=1;
+                permuteQueue.offer(nums[i]);
+            }
+            if(permuteQueue.size()==nums.length){
+                //排列完了
+                permuteResult.add(new ArrayList<>(queue));
+            }else{
+                fillQueue(nums, flag);
+            }
+            permuteQueue.pollLast();
+            flag[i] = 0;
+        }
     }
 
 }
