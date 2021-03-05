@@ -11,7 +11,7 @@ allprojects {
         compile group: "org.apache.commons", name: "commons-lang3", version: "3.8.1"
         compile group: "com.tencentcloudapi", name: "tencentcloud-sdk-java", version: "3.0.93"
         // spring-kafka版本 2.2.0.RELEASE
-//        compile("org.springframework.kafka:spring-kafka")
+        compile("org.springframework.kafka:spring-kafka")
         compile group: "org.redisson", name: "redisson-spring-boot-starter", version: "3.10.4"
     }
 }

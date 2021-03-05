@@ -8,8 +8,6 @@ spring:
   main:
     allow-bean-definition-overriding: true
   kafka:
-    producer:
-      bootstrap-servers: 127.0.0.1:9092
     bootstrap-servers: 127.0.0.1:9092
 
 eureka:
