@@ -21,14 +21,16 @@ public class Solution_322 {
     public int coinChange(int[] coins, int amount) {
         if (amount <= 0)
             return 0;
+        //凑成这么多需要的零钱的个数 如果刚好相等 那么就是1
         int[] dp = new int[amount + 1];
         // 需要先填充，不然会导致初值是0
         dp[0] = 0;
         for (int i = 1; i < amount + 1; i++) {
+            //就算是用1块的 最大的也不会超过amount
             dp[i] = amount + 1;
             for (int c : coins) {
                 if (i - c < 0) continue;
-//                因为这里如果相等的话会 i==c 会变成 1+0
+//                因为这里如果相等的话会 i==c 会变成 1+0 就是刚好取一枚就能凑出来
                 dp[i] = Math.min(dp[i], 1 + dp[i - c]);
             }
         }
