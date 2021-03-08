@@ -1,18 +1,16 @@
 package cn.code.leet.leetcode.dp;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import cn.code.leet.util.ArrayUtil;
+import org.junit.jupiter.api.Test;
+
+import java.util.*;
 
 public class Solution_132 {
-    List<List<String>> result = new ArrayList<>();
-    int[][] dp;
-    Deque<String> queue = new LinkedList<>();
-    int min = Integer.MAX_VALUE;
+
     public int minCut(String s) {
+        int min = Integer.MAX_VALUE;
         //表示从i到j的是不是回文串
-        dp = new int[s.length()][s.length()];
+        int[][] dp = new int[s.length()][s.length()];
         //初始化
         for (int i = 0; i < s.length(); i++) {
             dp[i][i] = 1;
@@ -26,29 +24,27 @@ public class Solution_132 {
                 }
             }
         }
-
-        // System.out.println(dp[0][3]);
-        //回溯全排 需要所有的都是回文 那么只需要从第一个开始
-        getStr(0, s);
-        for(List<String> l:result){
-            min = Math.min(min,l.size()-1);
-        }
-        return min;
-    }
-
-    public void getStr(int start, String s) {
-        if (start >= s.length()) {
-            //说明已经到头了，确实是一种排列
-            result.add(new ArrayList<>(queue));
-            return;
-        }
-        for (int i = start; i < s.length(); i++) {
-            if (dp[start][i] == 1) {
-                //说明这个是符合条件的 接着往下走 走完后把自己弹出来进下一轮
-                queue.offer(s.substring(start, i + 1));
-                getStr(i + 1, s);
-                queue.pollLast();//把最后的那一个拿走
+        int[] dp2 = new int[s.length()];
+        Arrays.fill(dp2, s.length());
+        for (int i = 0; i < s.length(); i++) {
+            if (dp[0][i] == 1) {
+                dp2[i] = 0;
+            } else {
+                for (int j = 1; j <= i; j++) {
+                    if (dp[j][i] == 1) {
+                        dp2[i] = Math.min(dp2[i], dp2[j-1] + 1);
+                    }
+                }
             }
         }
+        ArrayUtil.printArr(dp2);
+        return dp2[s.length() - 1];
     }
+
+
+    @Test
+    public void test(){
+        minCut("aabcaa");
+    }
+
 }
