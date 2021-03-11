@@ -1,11 +1,8 @@
 package cn.code.leet.codetop;
 
-import cn.code.leet.structure.ListNode;
 import cn.code.leet.structure.TreeNode;
 
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
-import java.nio.charset.Charset;
 import java.util.*;
 
 public class Solution_3 {
@@ -135,48 +132,71 @@ public class Solution_3 {
         int right = 0;
         int sum = 0;
         int min = Integer.MAX_VALUE;
-        while(right<nums.length){
+        while (right < nums.length) {
             int num = nums[right];
-            sum+=num;
-            while(sum>=target){
-                min = Math.min(min,right-left+1);
-                sum-=nums[left++];
+            sum += num;
+            while (sum >= target) {
+                min = Math.min(min, right - left + 1);
+                sum -= nums[left++];
             }
             right++;
         }
         return min;
     }
 
-    //找出出现次数超过n/2以上的
-    public int majorityElement(int[] nums) {
-        //aaabc 这样 所有的反对票都投给了a 但是a依然不会被投掉
-        //abaca 每次都有人反对你 单还是会输给a
-        //bacaa 每次你都要反对别人，就算反对所有人你还有剩的
-        //不允许用额外空间
-        int count = 1;
-        int num = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            if(nums[i]==num){
-                count++;
-            }else{
-                count--;
-                if(count==0){
-                    num = nums[i];
-                    count = 1;
+
+    //最长公共子序列
+    public int longestCommonSubsequence(String text1, String text2) {
+        int max = 0;
+        int[][] dp = new int[text1.length() + 1][text2.length() + 1];
+        for (int i = 1; i <= text1.length(); i++) {
+            for (int j = 1; j <= text2.length(); j++) {
+                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {//如果这两个不相等
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                 }
+                max = Math.max(max, dp[i][j]);
             }
         }
-        return num;
+        return max;
     }
 
-    public void reorderList(ListNode head) {
-        //先用两个指针找到中点
-
-        //翻转后半段
-        //合并链表
-
-
-
+    public int[] exchange(int[] nums) {
+//        双指针 原地转换
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            if (nums[left] % 2 == 0) {
+                //是偶数在后面找一个奇数和他换
+                while (left < right && nums[right] % 2 == 0) right--;
+                //这时候right指奇数
+                if (right > left) {
+                    int tmp = nums[right];
+                    nums[right] = nums[left];
+                    nums[left] = tmp;
+                }
+                right--;
+            }
+            left++;
+        }
+        return nums;
     }
 
+    public int[] searchRange(int[] nums, int target) {
+        int start = -1;
+        int fin = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == target) {
+                if (start == -1) {
+                    start = i;
+                    fin = i;
+                } else {
+                    fin++;
+                }
+
+            }
+        }
+        return new int[]{start,fin};
+    }
 }
