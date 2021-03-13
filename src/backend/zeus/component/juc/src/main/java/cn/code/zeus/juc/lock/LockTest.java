@@ -2,6 +2,8 @@ package cn.code.zeus.juc.lock;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.*;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject;
@@ -33,7 +35,8 @@ public class LockTest {
     }
 
     public void lockSupportTest() {
-
+        LockSupport.park();
+        LockSupport.unpark(Thread.currentThread());
     }
 
     public void readWriteLockTest() {
@@ -56,6 +59,20 @@ public class LockTest {
 
     }
 
+
+    public void conditionTest() throws InterruptedException {
+        Condition condition = new ReentrantLock().newCondition();
+        condition.await();
+        condition.signal();
+    }
+
+
+    public void threadLocalTest(){
+        ThreadLocal<Map<String,String>> l = new ThreadLocal<>();
+        l.set(new ConcurrentHashMap<>());
+        l.get().put("key","value");
+        //
+    }
 
     public static void main(String[] args) throws InterruptedException {
         LockTest lockTest = new LockTest();

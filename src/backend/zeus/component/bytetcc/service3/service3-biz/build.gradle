@@ -1,0 +1,11 @@
+apply plugin: "maven"
+
+allprojects {
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+        compile "org.jetbrains.kotlin:kotlin-reflect"
+        testCompile "junit:junit"
+        testCompile "org.springframework.boot:spring-boot-starter-test"
+        compile project(":component:bytetcc:service3:service3-api")
+    }
+}
