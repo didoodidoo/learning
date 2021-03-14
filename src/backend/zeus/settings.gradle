@@ -33,6 +33,7 @@ include ':component:bytetcc:service3:service3-biz'
 include ':component:bytetcc:service3:service3-boot'
 
 include ':eureka'
+include ':seata-server'
 
 include ':user'
 include ':user:user-api'

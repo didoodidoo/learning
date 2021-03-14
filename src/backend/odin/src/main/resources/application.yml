@@ -1,0 +1,14 @@
+# 应用名称
+spring:
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+        group: odin
+  application:
+    name: odin
+server:
+  port: 21900

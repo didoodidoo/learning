@@ -1,8 +1,11 @@
 package cn.code.leet.codetop;
 
+import cn.code.leet.structure.ListNode;
 import cn.code.leet.structure.TreeNode;
 
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
+import java.nio.charset.Charset;
 import java.util.*;
 
 public class Solution_3 {
@@ -143,4 +146,37 @@ public class Solution_3 {
         }
         return min;
     }
+
+    //找出出现次数超过n/2以上的
+    public int majorityElement(int[] nums) {
+        //aaabc 这样 所有的反对票都投给了a 但是a依然不会被投掉
+        //abaca 每次都有人反对你 单还是会输给a
+        //bacaa 每次你都要反对别人，就算反对所有人你还有剩的
+        //不允许用额外空间
+        int count = 1;
+        int num = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if(nums[i]==num){
+                count++;
+            }else{
+                count--;
+                if(count==0){
+                    num = nums[i];
+                    count = 1;
+                }
+            }
+        }
+        return num;
+    }
+
+    public void reorderList(ListNode head) {
+        //先用两个指针找到中点
+
+        //翻转后半段
+        //合并链表
+
+
+
+    }
+
 }

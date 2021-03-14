@@ -4,8 +4,9 @@ allprojects {
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
         compile "org.jetbrains.kotlin:kotlin-reflect"
+        compile 'com.alibaba.cloud:spring-cloud-starter-alibaba-seata:2.2.5.RELEASE'
+
         testCompile "junit:junit"
         testCompile "org.springframework.boot:spring-boot-starter-test"
-        compile 'org.bytesoft:bytetcc-supports-springcloud:0.5.9'
     }
 }
