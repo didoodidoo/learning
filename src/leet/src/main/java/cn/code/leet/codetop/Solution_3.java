@@ -197,6 +197,27 @@ public class Solution_3 {
 
             }
         }
-        return new int[]{start,fin};
+        return new int[]{start, fin};
+    }
+
+    public double maxAverageRatio(int[][] classes, int extraStudents) {
+        int len = classes.length;
+        PriorityQueue<double[]> cls = new PriorityQueue<>(
+                Comparator.comparingDouble(a -> (a[0] - a[1]) / (a[1] * (a[1] + 1))));
+        for (int i = 0; i < len; i++) {
+            cls.add(new double[]{classes[i][0], classes[i][1]});
+        }
+        while (extraStudents-- > 0) {
+            double[] temp = cls.remove();
+            temp[0]++;
+            temp[1]++;
+            cls.add(temp);
+        }
+        double res = 0;
+        while (cls.size() > 0) {
+            double[] temp = cls.remove();
+            res += temp[0] / temp[1];
+        }
+        return res / len;
     }
 }
