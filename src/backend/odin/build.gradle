@@ -22,13 +22,12 @@ allprojects {
     repositories {
         maven { setUrl("http://maven.aliyun.com/nexus/content/groups/public/")}
         maven { setUrl("https://repo.spring.io/libs-milestone") }
-        maven { setUrl("http://artifact.canway.net/maven-public/")}
         mavenCentral()
     }
 
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery')
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
