@@ -14,7 +14,7 @@
 
 spring:
   application:
-    name: odin-root
+    name: odin-user
   cloud:
     nacos:
       discovery:

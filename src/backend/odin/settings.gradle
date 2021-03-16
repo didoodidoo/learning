@@ -1,1 +1,38 @@
 rootProject.name = 'odin'
+
+include(":common")
+include(":common:common-api")
+include(":common:common-web")
+include(":common:common-service")
+include(":common:common-redis")
+
+//订单 物流 库存 商店 资金
+include(":order")
+include(":order:order-api")
+include(":order:order-biz")
+include(":order:order-boot")
+
+//库存
+include(":inventory")
+include(":inventory:inventory-api")
+include(":inventory:inventory-biz")
+include(":inventory:inventory-boot")
+
+//商家
+include(":store")
+include(":store:store-api")
+include(":store:store-biz")
+include(":store:store-boot")
+
+//用户 账号 权限
+include(":user")
+include(":user:user-api")
+include(":user:user-biz")
+include(":user:user-boot")
+
+//物流
+include(":logistic")
+include(":logistic:logistic-api")
+include(":logistic:logistic-biz")
+include(":logistic:logistic-boot")
+
