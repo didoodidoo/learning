@@ -1,4 +1,4 @@
-package cn.code.leet;
+package cn.code.leet.interview;
 
 import java.util.ArrayList;
 import java.util.Arrays;

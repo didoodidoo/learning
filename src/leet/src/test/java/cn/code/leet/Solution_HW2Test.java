@@ -1,10 +1,9 @@
 package cn.code.leet;
 
+import cn.code.leet.interview.Solution_HW2;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class Solution_HW2Test {
 

@@ -1,4 +1,4 @@
-package cn.code.leet;
+package cn.code.leet.interview;
 
 public class Solution_MST_08_03 {
 

@@ -1,4 +1,4 @@
-package cn.code.leet;
+package cn.code.leet.interview;
 
 //剑指offer 11
 public class Solution_O_11 {
